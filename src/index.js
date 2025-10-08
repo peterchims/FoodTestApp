@@ -4,9 +4,12 @@ import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import { TestApp } from "./db/schema.js";
 import { eq, and } from "drizzle-orm";
+import job from "./config/cron.js";
 
 const app = express();
 const PORT = ENV.PORT || 5001;
+
+if (ENV.NODE_ENV === "production") job.start();
 
 // Middlewares
 app.use(cors());
